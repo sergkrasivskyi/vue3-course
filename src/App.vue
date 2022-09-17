@@ -1,30 +1,47 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+  <div class="flow container">
+    <post-form @createPost="addPost"></post-form>
+    <post-list :posts="postsApp"></post-list>
+  </div>
 </template>
 
+<script>
+import PostForm from '@/components/PostForm.vue'
+import PostList from '@/components/PostList.vue'
+export default {
+  components: {
+    PostForm, PostList
+  },
+  data() {
+    return {
+      postsApp: [
+        { id: 1, title: "Назва 1", body: "Пост про Javascript 1" },
+        { id: 2, title: "Назва 2", body: "Пост про Javascript 2" },
+        { id: 3, title: "Назва 3", body: "Пост про Javascript 3" },
+        { id: 4, title: "Назва 4", body: "Пост про Javascript 4" }
+      ]
+    }
+  },
+  methods: {
+    addPost(post) {
+    this.postsApp.push(post)
+    }
+  },
+}
+</script>
+
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-nav {
-  padding: 30px;
+:where(.flow :not(:first-child, div+div), div[class]) {
+  margin-top: 1.2rem;
 }
 
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
+.container {
+  padding: 2rem;
 }
 </style>
