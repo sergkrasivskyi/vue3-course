@@ -1,7 +1,14 @@
 <template>
   <div class="flow container">
-    <post-form @createPost="addPost"></post-form>
-    <post-list :posts="postsApp"></post-list>
+    <h1>Сторінка з постами</h1>
+    <app-button
+    @click="showDialog"
+    >Додати пост</app-button>
+    <app-dialog v-model:show="isDialogVisible" >
+      <post-form @createPost="addPost"></post-form>
+
+    </app-dialog>
+    <post-list :posts="postsApp" @removePost="deletePost"></post-list>
   </div>
 </template>
 
@@ -19,12 +26,20 @@ export default {
         { id: 2, title: "Назва 2", body: "Пост про Javascript 2" },
         { id: 3, title: "Назва 3", body: "Пост про Javascript 3" },
         { id: 4, title: "Назва 4", body: "Пост про Javascript 4" }
-      ]
+      ],
+      isDialogVisible: false,
     }
   },
   methods: {
     addPost(post) {
-    this.postsApp.push(post)
+      this.postsApp.push(post),
+      this.isDialogVisible = false
+    },
+    deletePost(post) {
+      this.postsApp = this.postsApp.filter(elem => elem.id != post.id)
+    },
+    showDialog() {
+      this.isDialogVisible = true;
     }
   },
 }
