@@ -5,8 +5,7 @@
     @click="showDialog"
     >Додати пост</app-button>
     <app-dialog v-model:show="isDialogVisible" >
-      <post-form @createPost="addPost"></post-form>
-
+      <post-form @createPost="addPost"/>
     </app-dialog>
     <post-list :posts="postsApp" @removePost="deletePost"></post-list>
   </div>
